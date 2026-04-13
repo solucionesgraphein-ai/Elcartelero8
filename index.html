@@ -226,22 +226,68 @@
   #portafolio .section-title { color: var(--cream); }
   #portafolio .section-lead { color: rgba(245,240,232,0.6); }
 
-  .portfolio-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3.5rem; flex-wrap: wrap; gap: 1.5rem; }
+  .portfolio-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; flex-wrap: wrap; gap: 1.5rem; }
 
-  .portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: auto auto;
-    gap: 1.5rem;
+  /* ── CATEGORÍAS CON SLIDER ── */
+  .portfolio-category { margin-bottom: 4rem; }
+  .category-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(200,146,42,0.2);
+    padding-bottom: 1rem;
   }
+  .category-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem; font-weight: 700; font-style: italic;
+    color: var(--cream); letter-spacing: 0.02em;
+  }
+  .category-count {
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); margin-left: 1rem;
+  }
+  .slider-nav { display: flex; gap: 0.5rem; align-items: center; }
+  .slider-btn {
+    width: 36px; height: 36px; border-radius: 2px;
+    border: 1px solid rgba(200,146,42,0.35);
+    background: transparent; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s, border-color 0.2s;
+    color: var(--gold);
+  }
+  .slider-btn:hover { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+  .slider-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
+  .slider-dots { display: flex; gap: 6px; align-items: center; margin: 0 0.75rem; }
+  .slider-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: rgba(200,146,42,0.25); cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    border: none; padding: 0;
+  }
+  .slider-dot.active { background: var(--gold); transform: scale(1.3); }
+
+  /* Slider track */
+  .slider-wrapper { overflow: hidden; border-radius: 2px; }
+  .slider-track {
+    display: flex; gap: 1.25rem;
+    transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+  }
+
+  /* Cards dentro del slider */
   .portfolio-item {
+    flex: 0 0 calc(33.333% - 0.84rem);
     border-radius: 2px; overflow: hidden;
     position: relative; cursor: pointer;
     transition: transform 0.3s;
   }
+  @media (max-width: 900px) {
+    .portfolio-item { flex: 0 0 calc(50% - 0.625rem); }
+  }
+  @media (max-width: 600px) {
+    .portfolio-item { flex: 0 0 85%; }
+  }
   .portfolio-item:hover { transform: scale(1.02); }
   .portfolio-item:hover .portfolio-overlay { opacity: 1; }
-  .portfolio-item.featured { grid-column: span 2; }
   .portfolio-poster {
     aspect-ratio: 3/4; width: 100%;
     display: flex; flex-direction: column;
@@ -500,68 +546,264 @@
     </div>
     <p class="section-lead" style="max-width:320px;">Diseños para galerías, teatros, cafés culturales, músicos y marcas que quieren comunicar con impacto visual.</p>
   </div>
-  <div class="portfolio-grid fade-in">
 
-    <div class="portfolio-item featured">
-      <div class="portfolio-poster ps-dark" style="aspect-ratio: 16/9;">
-        <div class="ps-circle-deco" style="width:300px;height:300px;top:-80px;right:-80px;color:#fff;"></div>
-        <div class="ps-circle-deco" style="width:180px;height:180px;bottom:20px;left:20px;color:#fff;"></div>
-        <p class="ps-label" style="font-size:2.5rem;">Noche de<br>Jazz & Poesía</p>
-        <div class="ps-divider"></div>
-        <p class="ps-tag">Café cultural · Bogotá · Marzo 2025</p>
+  <!-- CATEGORÍA: Eventos Culturales -->
+  <div class="portfolio-category fade-in">
+    <div class="category-header">
+      <div style="display:flex;align-items:center;">
+        <span class="category-title">Eventos Culturales</span>
+        <span class="category-count">6 piezas</span>
       </div>
-      <div class="portfolio-overlay"><span>Evento cultural</span></div>
-    </div>
-
-    <div class="portfolio-item">
-      <div class="portfolio-poster ps-rust">
-        <div class="ps-circle-deco" style="width:200px;height:200px;top:-50px;left:-50px;color:#fff;"></div>
-        <p class="ps-label" style="font-size:1.8rem;">Exposición<br>Colectiva</p>
-        <div class="ps-divider"></div>
-        <p class="ps-tag">Galería · Arte contemporáneo</p>
+      <div class="slider-nav">
+        <div class="slider-dots" id="dots-cultural"></div>
+        <button class="slider-btn" onclick="moveSlider('cultural',-1)" aria-label="Anterior">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="slider-btn" onclick="moveSlider('cultural',1)" aria-label="Siguiente">
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
       </div>
-      <div class="portfolio-overlay"><span>Galería de arte</span></div>
     </div>
-
-    <div class="portfolio-item">
-      <div class="portfolio-poster ps-navy">
-        <div class="ps-circle-deco" style="width:150px;height:150px;bottom:-30px;right:-30px;color:#fff;"></div>
-        <p class="ps-label" style="font-size:1.8rem;">Temporada<br>de Teatro</p>
-        <div class="ps-divider"></div>
-        <p class="ps-tag">Teatro · Temporada 2025</p>
+    <div class="slider-wrapper">
+      <div class="slider-track" id="track-cultural">
+        <div class="portfolio-item">
+          <div class="portfolio-poster ps-dark">
+            <div class="ps-circle-deco" style="width:220px;height:220px;top:-60px;right:-60px;color:#fff;"></div>
+            <div class="ps-circle-deco" style="width:120px;height:120px;bottom:20px;left:20px;color:#fff;"></div>
+            <p class="ps-label" style="font-size:2rem;">Noche de<br>Jazz & Poesía</p>
+            <div class="ps-divider"></div>
+            <p class="ps-tag">Café cultural · Bogotá · Marzo 2025</p>
+          </div>
+          <div class="portfolio-overlay"><span>Evento cultural</span></div>
+        </div>
+        <div class="portfolio-item">
+          <div class="portfolio-poster ps-rust">
+            <div class="ps-circle-deco" style="width:200px;height:200px;top:-50px;left:-50px;color:#fff;"></div>
+            <p class="ps-label" style="font-size:1.8rem;">Exposición<br>Colectiva</p>
+            <div class="ps-divider"></div>
+            <p class="ps-tag">Galería · Arte contemporáneo</p>
+          </div>
+          <div class="portfolio-overlay"><span>Galería de arte</span></div>
+        </div>
+        <div class="portfolio-item">
+          <div class="portfolio-poster ps-navy">
+            <div class="ps-circle-deco" style="width:150px;height:150px;bottom:-30px;right:-30px;color:#fff;"></div>
+            <p class="ps-label" style="font-size:1.8rem;">Feria del<br>Libro 2025</p>
+            <div class="ps-divider"></div>
+            <p class="ps-tag">Literatura · Festival nacional</p>
+          </div>
+          <div class="portfolio-overlay"><span>Festival</span></div>
+        </div>
+        <div class="portfolio-item">
+          <div class="portfolio-poster ps-sage">
+            <p class="ps-label" style="font-size:1.6rem;">Lanzamiento<br>de Libro</p>
+            <div class="ps-divider"></div>
+            <p class="ps-tag">Librería · Literatura colombiana</p>
+          </div>
+          <div class="portfolio-overlay"><span>Librería</span></div>
+        </div>
+        <div class="portfolio-item">
+          <div class="portfolio-poster ps-cream">
+            <p class="ps-label" style="font-size:1.6rem;">Ciclo de<br>Cine Arte</p>
+            <div class="ps-divider"></div>
+            <p class="ps-tag">Cinemateca · Proyecciones 2025</p>
+          </div>
+          <div class="portfolio-overlay"><span>Cine</span></div>
+        </div>
+        <div class="portfolio-item">
+          <div class="portfolio-poster ps-dark" style="background:#2a1a0e;">
+            <div class="ps-circle-deco" style="width:160px;height:160px;top:-30px;right:-30px;color:var(--gold);"></div>
+            <p class="ps-label" style="font-size:1.6rem;color:var(--gold-light);">Foro de<br>Dramaturgia</p>
+            <div class="ps-divider" style="background:var(--gold);opacity:0.6;"></div>
+            <p class="ps-tag" style="color:var(--gold-light);">Teatro · Encuentro académico</p>
+          </div>
+          <div class="portfolio-overlay"><span>Teatro</span></div>
+        </div>
       </div>
-      <div class="portfolio-overlay"><span>Teatro</span></div>
     </div>
-
-    <div class="portfolio-item">
-      <div class="portfolio-poster ps-sage">
-        <p class="ps-label" style="font-size:1.6rem;">Lanzamiento<br>de Libro</p>
-        <div class="ps-divider"></div>
-        <p class="ps-tag">Librería · Literatura colombiana</p>
-      </div>
-      <div class="portfolio-overlay"><span>Librería</span></div>
-    </div>
-
-    <div class="portfolio-item">
-      <div class="portfolio-poster ps-gold">
-        <div class="ps-circle-deco" style="width:180px;height:180px;top:-40px;right:-40px;color:#1a1208;"></div>
-        <p class="ps-label" style="font-size:1.6rem;">Concierto<br>Acústico</p>
-        <div class="ps-divider"></div>
-        <p class="ps-tag">Música en vivo · Café bar</p>
-      </div>
-      <div class="portfolio-overlay"><span>Música</span></div>
-    </div>
-
-    <div class="portfolio-item">
-      <div class="portfolio-poster ps-cream">
-        <p class="ps-label" style="font-size:1.6rem;">Taller de<br>Fotografía</p>
-        <div class="ps-divider"></div>
-        <p class="ps-tag">Centro cultural · Workshop</p>
-      </div>
-      <div class="portfolio-overlay"><span>Talleres</span></div>
-    </div>
-
   </div>
+
+  <!-- CATEGORÍA: Música -->
+  <div class="portfolio-category fade-in">
+    <div class="category-header">
+      <div style="display:flex;align-items:center;">
+        <span class="category-title">Música & Conciertos</span>
+        <span class="category-count">5 piezas</span>
+      </div>
+      <div class="slider-nav">
+        <div class="slider-dots" id="dots-musica"></div>
+        <button class="slider-btn" onclick="moveSlider('musica',-1)" aria-label="Anterior">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="slider-btn" onclick="moveSlider('musica',1)" aria-label="Siguiente">
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="slider-wrapper">
+      <div class="slider-track" id="track-musica">
+        <div class="portfolio-item">
+          <div class="portfolio-poster ps-gold">
+            <div class="ps-circle-deco" style="width:180px;height:180px;top:-40px;right:-40px;color:#1a1208;"></div>
+            <p class="ps-label" style="font-size:1.8rem;">Concierto<br>Acústico</p>
+            <div class="ps-divider"></div>
+            <p class="ps-tag">Música en vivo · Café bar</p>
+          </div>
+          <div class="portfolio-overlay"><span>Música</span></div>
+        </div>
+        <div class="portfolio-item">
+          <div class="portfolio-poster ps-dark" style="background:#0d0d1a;">
+            <div class="ps-circle-deco" style="width:200px;height:200px;top:-50px;left:-50px;color:#7b68ee;"></div>
+            <p class="ps-label" style="font-size:1.8rem;color:#c8b4ff;">Festival<br>Electrónico</p>
+            <div class="ps-divider" style="background:#7b68ee;opacity:0.7;"></div>
+            <p class="ps-tag" style="color:#c8b4ff;">Club · Bogotá</p>
+          </div>
+          <div class="portfolio-overlay"><span>Electrónica</span></div>
+        </div>
+        <div class="portfolio-item">
+          <div class="portfolio-poster ps-rust">
+            <p class="ps-label" style="font-size:1.6rem;">Salsa &<br>Cumbias</p>
+            <div class="ps-divider"></div>
+            <p class="ps-tag">Baile · Feria de Cali</p>
+          </div>
+          <div class="portfolio-overlay"><span>Folclor</span></div>
+        </div>
+        <div class="portfolio-item">
+          <div class="portfolio-poster ps-navy">
+            <div class="ps-circle-deco" style="width:160px;height:160px;bottom:-40px;right:-40px;color:#fff;"></div>
+            <p class="ps-label" style="font-size:1.6rem;">Orquesta<br>Sinfónica</p>
+            <div class="ps-divider"></div>
+            <p class="ps-tag">Clásica · Temporada 2025</p>
+          </div>
+          <div class="portfolio-overlay"><span>Clásica</span></div>
+        </div>
+        <div class="portfolio-item">
+          <div class="portfolio-poster ps-sage">
+            <p class="ps-label" style="font-size:1.6rem;">Rock en<br>el Parque</p>
+            <div class="ps-divider"></div>
+            <p class="ps-tag">Rock · Festival al aire libre</p>
+          </div>
+          <div class="portfolio-overlay"><span>Rock</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORÍA: Talleres & Formación -->
+  <div class="portfolio-category fade-in">
+    <div class="category-header">
+      <div style="display:flex;align-items:center;">
+        <span class="category-title">Talleres & Formación</span>
+        <span class="category-count">4 piezas</span>
+      </div>
+      <div class="slider-nav">
+        <div class="slider-dots" id="dots-talleres"></div>
+        <button class="slider-btn" onclick="moveSlider('talleres',-1)" aria-label="Anterior">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="slider-btn" onclick="moveSlider('talleres',1)" aria-label="Siguiente">
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="slider-wrapper">
+      <div class="slider-track" id="track-talleres">
+        <div class="portfolio-item">
+          <div class="portfolio-poster ps-cream">
+            <p class="ps-label" style="font-size:1.6rem;">Taller de<br>Fotografía</p>
+            <div class="ps-divider"></div>
+            <p class="ps-tag">Centro cultural · Workshop</p>
+          </div>
+          <div class="portfolio-overlay"><span>Fotografía</span></div>
+        </div>
+        <div class="portfolio-item">
+          <div class="portfolio-poster ps-sage">
+            <div class="ps-circle-deco" style="width:150px;height:150px;top:-30px;right:-30px;color:#fff;"></div>
+            <p class="ps-label" style="font-size:1.6rem;">Cerámica<br>Creativa</p>
+            <div class="ps-divider"></div>
+            <p class="ps-tag">Artesanía · Bogotá</p>
+          </div>
+          <div class="portfolio-overlay"><span>Artesanía</span></div>
+        </div>
+        <div class="portfolio-item">
+          <div class="portfolio-poster ps-dark" style="background:#1a1a0e;">
+            <div class="ps-circle-deco" style="width:180px;height:180px;bottom:-40px;left:-40px;color:var(--gold);"></div>
+            <p class="ps-label" style="font-size:1.6rem;color:var(--gold-light);">Diseño<br>Editorial</p>
+            <div class="ps-divider" style="background:var(--gold);opacity:0.6;"></div>
+            <p class="ps-tag" style="color:var(--gold-light);">Diseño gráfico · Taller avanzado</p>
+          </div>
+          <div class="portfolio-overlay"><span>Diseño</span></div>
+        </div>
+        <div class="portfolio-item">
+          <div class="portfolio-poster ps-rust">
+            <p class="ps-label" style="font-size:1.6rem;">Pintura<br>Acuarela</p>
+            <div class="ps-divider"></div>
+            <p class="ps-tag">Bellas artes · Nivel inicial</p>
+          </div>
+          <div class="portfolio-overlay"><span>Pintura</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORÍA: Negocios & Marcas -->
+  <div class="portfolio-category fade-in">
+    <div class="category-header">
+      <div style="display:flex;align-items:center;">
+        <span class="category-title">Negocios & Marcas</span>
+        <span class="category-count">4 piezas</span>
+      </div>
+      <div class="slider-nav">
+        <div class="slider-dots" id="dots-marcas"></div>
+        <button class="slider-btn" onclick="moveSlider('marcas',-1)" aria-label="Anterior">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="slider-btn" onclick="moveSlider('marcas',1)" aria-label="Siguiente">
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="slider-wrapper">
+      <div class="slider-track" id="track-marcas">
+        <div class="portfolio-item">
+          <div class="portfolio-poster ps-navy">
+            <div class="ps-circle-deco" style="width:200px;height:200px;top:-60px;right:-60px;color:#fff;"></div>
+            <p class="ps-label" style="font-size:1.8rem;">Gran<br>Apertura</p>
+            <div class="ps-divider"></div>
+            <p class="ps-tag">Restaurante · Chapinero</p>
+          </div>
+          <div class="portfolio-overlay"><span>Gastronomía</span></div>
+        </div>
+        <div class="portfolio-item">
+          <div class="portfolio-poster ps-gold">
+            <p class="ps-label" style="font-size:1.6rem;">Temporada<br>de Rebajas</p>
+            <div class="ps-divider"></div>
+            <p class="ps-tag">Moda · Colección verano</p>
+          </div>
+          <div class="portfolio-overlay"><span>Moda</span></div>
+        </div>
+        <div class="portfolio-item">
+          <div class="portfolio-poster ps-cream">
+            <div class="ps-circle-deco" style="width:160px;height:160px;bottom:-30px;left:-30px;color:var(--ink);"></div>
+            <p class="ps-label" style="font-size:1.6rem;">Menú de<br>Temporada</p>
+            <div class="ps-divider"></div>
+            <p class="ps-tag">Café bar · Palermo</p>
+          </div>
+          <div class="portfolio-overlay"><span>Gastronomía</span></div>
+        </div>
+        <div class="portfolio-item">
+          <div class="portfolio-poster ps-dark" style="background:#0f1a0f;">
+            <div class="ps-circle-deco" style="width:180px;height:180px;top:-40px;right:-40px;color:#4a6741;"></div>
+            <p class="ps-label" style="font-size:1.6rem;color:#8db88a;">Productos<br>Orgánicos</p>
+            <div class="ps-divider" style="background:#4a6741;opacity:0.8;"></div>
+            <p class="ps-tag" style="color:#8db88a;">Mercado verde · Bogotá</p>
+          </div>
+          <div class="portfolio-overlay"><span>Orgánico</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </section>
 
 <!-- SERVICIOS -->
@@ -716,16 +958,93 @@
 </a>
 
 <script>
-  // Fade in on scroll
+  // ── SLIDERS ──
+  const sliders = {
+    cultural: { index: 0, total: 6 },
+    musica:   { index: 0, total: 5 },
+    talleres: { index: 0, total: 4 },
+    marcas:   { index: 0, total: 4 },
+  };
+
+  function getVisibleCount() {
+    return window.innerWidth <= 600 ? 1 : window.innerWidth <= 900 ? 2 : 3;
+  }
+
+  function renderDots(id) {
+    const s = sliders[id];
+    const vis = getVisibleCount();
+    const pages = Math.ceil(s.total / vis);
+    const container = document.getElementById('dots-' + id);
+    if (!container) return;
+    container.innerHTML = '';
+    for (let i = 0; i < pages; i++) {
+      const dot = document.createElement('button');
+      dot.className = 'slider-dot' + (i === Math.floor(s.index / vis) ? ' active' : '');
+      dot.setAttribute('aria-label', 'Página ' + (i + 1));
+      dot.onclick = () => goToPage(id, i);
+      container.appendChild(dot);
+    }
+  }
+
+  function goToPage(id, page) {
+    const vis = getVisibleCount();
+    sliders[id].index = page * vis;
+    updateSlider(id);
+  }
+
+  function updateSlider(id) {
+    const s = sliders[id];
+    const track = document.getElementById('track-' + id);
+    if (!track) return;
+    const vis = getVisibleCount();
+    const gap = 20; // 1.25rem ≈ 20px
+    const itemWidth = (track.parentElement.offsetWidth - gap * (vis - 1)) / vis;
+    const offset = s.index * (itemWidth + gap);
+    track.style.transform = `translateX(-${offset}px)`;
+    renderDots(id);
+  }
+
+  function moveSlider(id, dir) {
+    const s = sliders[id];
+    const vis = getVisibleCount();
+    const maxIndex = s.total - vis;
+    s.index = Math.max(0, Math.min(s.index + dir, maxIndex));
+    updateSlider(id);
+  }
+
+  function initSliders() {
+    Object.keys(sliders).forEach(id => {
+      sliders[id].index = 0;
+      renderDots(id);
+      updateSlider(id);
+    });
+  }
+
+  window.addEventListener('resize', initSliders);
+  window.addEventListener('load', initSliders);
+
+  // Touch/swipe support
+  document.querySelectorAll('.slider-wrapper').forEach(wrapper => {
+    let startX = 0;
+    wrapper.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+    wrapper.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - startX;
+      const track = wrapper.querySelector('.slider-track');
+      const id = track.id.replace('track-', '');
+      if (Math.abs(dx) > 50) moveSlider(id, dx < 0 ? 1 : -1);
+    });
+  });
+
+  // ── FADE IN ON SCROLL ──
   const faders = document.querySelectorAll('.fade-in');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) { entry.target.classList.add('visible'); }
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.08 });
   faders.forEach(el => observer.observe(el));
 
-  // Form submit
+  // ── FORM SUBMIT ──
   function handleSubmit(e) {
     e.preventDefault();
     const btn = document.getElementById('submit-btn');
@@ -738,7 +1057,7 @@
     }, 1000);
   }
 
-  // Smooth reveal hero
+  // ── SMOOTH REVEAL HERO ──
   document.querySelector('.hero-left').style.opacity = '0';
   document.querySelector('.hero-left').style.transform = 'translateY(20px)';
   window.addEventListener('load', () => {
